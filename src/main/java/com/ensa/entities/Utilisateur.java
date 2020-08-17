@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Utilisateur {
 	@Id
@@ -98,7 +100,7 @@ public class Utilisateur {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
+	@JsonIgnore
 	public List<Affectation> getAffectaions() {
 		return affectaions;
 	}
@@ -106,7 +108,7 @@ public class Utilisateur {
 	public void setAffectaions(List<Affectation> affectaions) {
 		this.affectaions = affectaions;
 	}
-
+	@JsonIgnore
 	public Comite getComite() {
 		return comite;
 	}

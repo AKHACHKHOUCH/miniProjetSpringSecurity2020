@@ -23,6 +23,9 @@ public class ComiteService {
 	public List<Comite> getAllComites() {
 		return comiteRepo.findAll();
 	}
+	public List<Utilisateur> getUsers(Long id) {
+		return comiteRepo.findById(id).get().getUtilisateurs();
+	}
 	public Comite updateComite(Comite comite, Long id) {
 		Comite c = comiteRepo.findById(id).get();
 		c.setNom(comite.getNom());

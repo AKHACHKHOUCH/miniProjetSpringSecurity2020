@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Role {
 	@Id
@@ -45,6 +47,7 @@ public class Role {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	@JsonIgnore
 	public List<Utilisateur> getUtilisateurs() {
 		return utilisateurs;
 	}

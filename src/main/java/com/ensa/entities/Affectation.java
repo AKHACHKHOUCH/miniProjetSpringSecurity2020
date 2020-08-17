@@ -1,10 +1,13 @@
 package com.ensa.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Affectation {
@@ -15,7 +18,7 @@ public class Affectation {
 	private String etat;
 	@ManyToOne
 	private Utilisateur utilisateur;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Article article;
 	public Affectation(Long id, String commentaire, String etat, Utilisateur utilisateur) {
 		super();
@@ -51,6 +54,7 @@ public class Affectation {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+	@JsonIgnore
 	public Article getArticle() {
 		return article;
 	}

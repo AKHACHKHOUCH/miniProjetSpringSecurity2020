@@ -2,7 +2,6 @@ package com.ensa.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,13 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //		http.formLogin();
-		http.authorizeRequests().antMatchers("/login/**").permitAll();
-//		http.authorizeRequests().antMatchers(HttpMethod.GET, "/reservations/**"
-//				).hasAuthority("Admin");
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/reservations/**"
-				).hasAnyAuthority("Admin","Demandeur");
-		http.authorizeRequests().antMatchers(
-				).hasAuthority("Demandeur");
+		http.authorizeRequests().antMatchers("/login/**", "/register/**").permitAll();
+		http.authorizeRequests().antMatchers( "/articles/**","motsCles" 
+				).hasAuthority("Auteur");
+		http.authorizeRequests().antMatchers("/comite/**","/articles/**", "affectations/**", "motsCles/**",
+				"utilisateur/**").hasAuthority("Admin");
+		http.authorizeRequests().antMatchers("/articles/update/**"
+				).hasAuthority("Referee");
 		http.authorizeRequests().anyRequest().authenticated();
 		http.addFilter(new JwtAuthentificationFilter(authenticationManager()));
 		http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class );
